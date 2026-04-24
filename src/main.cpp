@@ -6,7 +6,8 @@
 int main() {
     BPTree tree;
 
-    // 12 hardcoded entries — small ORDER=4 forces several splits
+    // 25 hardcoded entries — ORDER=4 forces leaf splits, internal splits,
+    // and a second root split producing a 3-level tree
     std::vector<std::pair<std::string, std::string>> entries = {
         {"10001", "New York, NY"},
         {"90210", "Beverly Hills, CA"},
@@ -20,6 +21,19 @@ int main() {
         {"19101", "Philadelphia, PA"},
         {"80201", "Denver, CO"},
         {"15201", "Pittsburgh, PA"},
+        {"20001", "Washington, DC"},
+        {"28201", "Charlotte, NC"},
+        {"37201", "Nashville, TN"},
+        {"45201", "Cincinnati, OH"},
+        {"48201", "Detroit, MI"},
+        {"53201", "Milwaukee, WI"},
+        {"63101", "St. Louis, MO"},
+        {"70112", "New Orleans, LA"},
+        {"73101", "Oklahoma City, OK"},
+        {"75201", "Dallas, TX"},
+        {"87101", "Albuquerque, NM"},
+        {"94101", "San Francisco, CA"},
+        {"97201", "Portland, OR"},
     };
 
     std::cout << "=== Inserting " << entries.size() << " entries ===\n";
