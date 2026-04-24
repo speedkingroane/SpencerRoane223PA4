@@ -64,7 +64,9 @@ void REPL::run() {
 
             } else if (cmd == "UPLOAD") {
                 std::string filename, primaryCol;
-                iss >> filename >> primaryCol;
+                iss >> filename;
+                std::getline(iss, primaryCol);
+                primaryCol = trim(primaryCol);
                 if (filename.empty() || primaryCol.empty()) {
                     std::cout << "Usage: UPLOAD filename.csv PRIMARY_COL\n";
                     continue;
