@@ -5,10 +5,6 @@
 
 class BPTree {
 public:
-    // Max keys per node. ORDER=4 forces splits at 3 keys for easy testing.
-    // Increase to 128+ for production CSV loads.
-    static const int ORDER = 4;
-
     struct Node {
         bool isLeaf;
         std::vector<std::string> keys;
@@ -19,18 +15,23 @@ public:
         explicit Node(bool leaf) : isLeaf(leaf), next(nullptr) {}
     };
 
-    BPTree();
+    explicit BPTree(int order = 128);
     ~BPTree();
 
-    void insert(const std::string& key, const std::string& value);
+    // Returns false if key already exists (duplicate)
+    bool insert(const std::string& key, const std::string& value);
     std::string* search(const std::string& key);
     void printTree() const;
 
+    void save(const std::string& path, const std::vector<std::string>& headers) const;
+    static BPTree* load(const std::string& path, std::vector<std::string>& headers);
+
 private:
     Node* root;
+    int order;
 
-    // Returns {promoted_key, new_right_node} on split, {"", nullptr} otherwise
-    std::pair<std::string, Node*> insertRec(Node* node, const std::string& key, const std::string& value);
+    std::pair<std::string, Node*> insertRec(Node* node, const std::string& key,
+                                             const std::string& value, bool& duplicate);
     void destroyTree(Node* node);
     void printNode(Node* node, int depth) const;
 };
